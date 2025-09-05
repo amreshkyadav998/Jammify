@@ -11,11 +11,11 @@ const Header = () => {
   const getRoleIcon = (role) => {
     switch (role?.toLowerCase()) {
       case 'admin':
-        return <Crown className="w-4 h-4 text-yellow-400" />;
+        return <Crown className="w-4 h-4 text-yellow-500" />;
       case 'premium':
-        return <Shield className="w-4 h-4 text-purple-400" />;
+        return <Shield className="w-4 h-4 text-purple-500" />;
       default:
-        return <User className="w-4 h-4 text-gray-400" />;
+        return <User className="w-4 h-4 text-gray-500" />;
     }
   };
 
@@ -31,57 +31,54 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700 transition-all duration-300">
+    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}
-          <Link 
-            to="/dashboard" 
-            className="flex items-center space-x-3 hover:scale-105 transition-transform duration-200 group"
-          >
-            <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg shadow-md group-hover:shadow-lg transition-shadow">
-              <Music className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <Link to="/dashboard" className="flex items-center space-x-2">
+            <Music className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-xl font-semibold text-gray-900 dark:text-white">
               JammiFy
             </span>
           </Link>
 
           {/* Right Section */}
           <div className="flex items-center space-x-4">
-            {/* User Welcome Message */}
+            {/* User Info (desktop) */}
             {user && (
-              <div className="hidden sm:flex items-center space-x-3 bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center space-x-2">
-                  {getRoleIcon(user.role)}
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Welcome, <span className="font-semibold text-gray-900 dark:text-white">{user.username}</span>
-                  </span>
-                </div>
-                <span className={`px-2 py-1 text-xs font-medium rounded-full ${getRoleBadgeColor(user.role)}`}>
+              <div className="hidden sm:flex items-center space-x-3 px-3 py-1 border rounded-md bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                {getRoleIcon(user.role)}
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  {user.username}
+                </span>
+                <span
+                  className={`px-2 py-0.5 text-xs font-medium rounded ${getRoleBadgeColor(
+                    user.role
+                  )}`}
+                >
                   {user.role}
                 </span>
               </div>
             )}
 
-            {/* Theme Toggle Button */}
+            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 hover:scale-110 border border-gray-300 dark:border-gray-600"
+              className="p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             >
               {theme === 'light' ? (
-                <Moon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                <Moon className="w-5 h-5 text-gray-600" />
               ) : (
                 <Sun className="w-5 h-5 text-yellow-500" />
               )}
             </button>
 
-            {/* Auth Button */}
+            {/* Auth Actions */}
             {user ? (
               <button
                 onClick={logout}
-                className="flex items-center space-x-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg active:scale-95"
+                className="flex items-center space-x-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm transition"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">Logout</span>
@@ -89,7 +86,7 @@ const Header = () => {
             ) : (
               <Link
                 to="/"
-                className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg active:scale-95"
+                className="flex items-center space-x-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm transition"
               >
                 <User className="w-4 h-4" />
                 <span>Login</span>
@@ -98,17 +95,21 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile User Info - Shows on smaller screens */}
+        {/* Mobile User Info */}
         {user && (
-          <div className="sm:hidden pb-3 pt-1">
-            <div className="flex items-center justify-center space-x-3 bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="sm:hidden py-2">
+            <div className="flex items-center justify-between px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-2">
                 {getRoleIcon(user.role)}
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Welcome, <span className="font-semibold text-gray-900 dark:text-white">{user.username}</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  {user.username}
                 </span>
               </div>
-              <span className={`px-2 py-1 text-xs font-medium rounded-full ${getRoleBadgeColor(user.role)}`}>
+              <span
+                className={`px-2 py-0.5 text-xs font-medium rounded ${getRoleBadgeColor(
+                  user.role
+                )}`}
+              >
                 {user.role}
               </span>
             </div>
