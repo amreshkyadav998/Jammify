@@ -24,7 +24,7 @@ export default defineConfig({
       async buildEnd(error) {
         if (!error) {
           try {
-            await fetch("http://your-local-host-url-here/__fullReload");
+            await fetch("http://localhost:4173/__fullReload");
           } catch (e) {
             // noop
           }
