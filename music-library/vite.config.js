@@ -5,7 +5,6 @@ import federation from "@originjs/vite-plugin-federation";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
   plugins: [
     react(),
     tailwindcss(),
@@ -14,6 +13,7 @@ export default defineConfig({
       filename: "remoteEntry.js",
       exposes: {
         "./MusicLibrary": "./src/MusicLibrary.jsx",
+        "./Sidebar": "./src/components/Sidebar.jsx",
       },
       shared: ["react", "react-dom", "react-router-dom", "lucide-react"],
     }),
