@@ -1,60 +1,44 @@
-// import { defineConfig } from 'vite'
-// import react from '@vitejs/plugin-react'
-// import tailwindcss from '@tailwindcss/vite'
-// import federation from '@originjs/vite-plugin-federation';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import federation from "@originjs/vite-plugin-federation";
 
-// // https://vite.dev/config/
-// export default defineConfig({
-//   plugins: [react(),
-//     tailwindcss(),
-//   federation({
-//       name: 'music_library',
-//       filename: 'remoteEntry.js',
-//       exposes: {
-//         './MusicLibrary': './src/MusicLibrary.jsx',
-//       },
-//       shared: ['react', 'react-dom', 'react-router-dom'],
-//     }),
-//   ],
-//   build: {
-//     target: 'esnext',
-//   },
-//   server: {
-//     port: 4175,
-//   },
-// })
-
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import federation from '@originjs/vite-plugin-federation'
-
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
     federation({
-      name: 'music_library',
-      filename: 'remoteEntry.js',
+      name: "music_library",
+      filename: "remoteEntry.js",
       exposes: {
-        './MusicLibrary': './src/MusicLibrary.jsx',
-        './SongItem': './src/components/SongItem.jsx',
-        './SongList': './src/components/SongList.jsx',
-        './AddSongForm': './src/components/AddSongForm.jsx',
+        "./MusicLibrary": "./src/MusicLibrary.jsx",
       },
-      shared: {
-        react: { singleton: true, requiredVersion: '^18.0.0' },
-        'react-dom': { singleton: true, requiredVersion: '^18.0.0' },
-        'react-router-dom': { singleton: true },
-        'lucide-react': { singleton: true }, // 👈 important
-      },
+      shared: ["react", "react-dom", "react-router-dom", "lucide-react"],
     }),
+    {
+      name: "vite-plugin-notify-host-on-rebuild",
+      apply(config, { command }) {
+        return Boolean(command === "build" && config.build?.watch);
+      },
+      async buildEnd(error) {
+        if (!error) {
+          try {
+            await fetch("http://your-local-host-url-here/__fullReload");
+          } catch (e) {
+            // noop
+          }
+        }
+      },
+    },
   ],
   build: {
-    target: 'esnext',
-    chunkSizeWarningLimit: 1500,
+    modulePreload: false,
+    target: "esnext",
+    minify: false,
+    cssCodeSplit: false,
   },
   server: {
-    port: 4175,
+    port: 4174,
   },
-})
+});

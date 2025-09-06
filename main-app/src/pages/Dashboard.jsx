@@ -28,7 +28,7 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const { songs, dispatch } = useContext(SongsContext);
   const MusicLibrary = lazy(() =>
-    import("../../../music-library/src/MusicLibrary")
+    import("music_library/MusicLibrary")
   );
 
   return (
