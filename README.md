@@ -81,7 +81,7 @@ A modern music library application built with **React.js** and **Micro Frontend 
 
 #### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/amreshkyadav998/Jammify.git
 cd jammify
 ```
 
