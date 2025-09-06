@@ -28,7 +28,7 @@ export default defineConfig({
     target: 'esnext',
      chunkSizeWarningLimit: 1500,
     rollupOptions: {
-      external: [],
+      external: 'music_library',
     },
   },
   server: {
