@@ -27,7 +27,7 @@ A modern music library application built with **React.js** and **Micro Frontend 
 - **State Management**: useState, useReducer, Context API
 - **Storage**: localStorage
 - **Deployment**: Vercel
-- **Build Tool**: Vite/Webpack
+- **Build Tool**: Vite
 
 ## Features
 
